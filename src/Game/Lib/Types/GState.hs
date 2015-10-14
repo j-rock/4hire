@@ -1,4 +1,4 @@
-module Game.Lib4Hire.Types.GState where
+module Game.Lib.Types.GState where
 
 data GState = GState
 

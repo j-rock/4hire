@@ -1,4 +1,4 @@
-EXE=4hire
+EXE=strat-game
 CABAL=Cabal-1.22.4.0
 ARCH=x86_64-linux
 

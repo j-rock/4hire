@@ -1,4 +1,4 @@
-name:          4hire
+name:          strat
 category:      Game
 version:       0.1.0.0
 license:       MIT
@@ -6,8 +6,8 @@ cabal-version: >=1.10
 license-file:  LICENSE
 author:        Joseph Rock
 maintainer:    Joseph Rock <wax818@gmail.com>
-homepage:      https://github.com/j-rock/4hire
-bug-reports:   https://github.com/j-rock/4hire/issues
+homepage:      https://github.com/j-rock/strat
+bug-reports:   https://github.com/j-rock/strat/issues
 copyright:     Copyright (C) 2015 Joseph Rock
 synopsis:      Strategy game on a hex grid
 build-type:    Simple
@@ -17,15 +17,15 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: git://github.com/j-rock/4hire.git
+  location: git://github.com/j-rock/strat.git
 
-executable 4hire-game
+executable strat-game
   default-language:    Haskell2010
   hs-source-dirs:      exec-src
   main-is:             Main.hs
   build-depends:
     base               >= 4.8   && < 4.9,
-    4hire
+    strat
 
 test-suite tests
   default-language:    Haskell2010
@@ -40,7 +40,7 @@ test-suite tests
     test-framework-hunit       >= 0.3 && < 0.4,
     test-framework-quickcheck2 >= 0.3 && < 0.4,
     test-framework-th          >= 0.2 && < 0.3,
-    4hire
+    strat
 
 library
   default-language:    Haskell2010
@@ -53,6 +53,6 @@ library
     text               >= 1.2   && < 1.3
   exposed-modules:
     SDL.Extras,
-    Game.Lib4Hire,
-    Game.Lib4Hire.Types.GState
+    Game.Lib,
+    Game.Lib.Types.GState
 
