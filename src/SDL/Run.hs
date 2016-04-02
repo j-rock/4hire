@@ -1,13 +1,13 @@
 {-# LANGUAGE RecordWildCards #-}
 
-module SDL.Extras
+module SDL.Run
     ( ScreenInfo(..)
-    , SDLContext(..)
+    , Context(..)
     , MilliDelta
     , InitialState
     , FinishedPlaying(..)
     , IterateStateFunc
-    , runWithSDLContext
+    , runWithContext
     ) where
 
 import Data.Word (Word32)
@@ -23,10 +23,10 @@ data ScreenInfo = ScreenInfo { width  :: Foreign.CInt
                              , title  :: Text.Text
                              }
 
-data SDLContext = SDLContext { renderer :: SDL.Renderer
-                             , window   :: SDL.Window
-                             , events   :: [SDL.Event]
-                             }
+data Context = Context { renderer :: SDL.Renderer
+                       , window   :: SDL.Window
+                       , events   :: [SDL.Event]
+                       }
 
 type MilliDelta = Word32
 type InitialState state = state
@@ -35,11 +35,11 @@ data FinishedPlaying = StillPlaying
                        deriving (Eq, Ord, Show, Enum, Bounded)
 
 
-type IterateStateFunc m state = SDLContext -> MilliDelta -> state -> m (state, FinishedPlaying)
+type IterateStateFunc m state = Context -> MilliDelta -> state -> m (state, FinishedPlaying)
 
 
-runWithSDLContext :: ScreenInfo -> InitialState a -> IterateStateFunc IO a -> IO ()
-runWithSDLContext ScreenInfo{..} initialState iterator =
+runWithContext :: ScreenInfo -> InitialState a -> IterateStateFunc IO a -> IO ()
+runWithContext ScreenInfo{..} initialState iterator =
     let initialize = SDL.initialize [SDL.InitVideo]
 
         setupRenderQuality = do SDL.HintRenderScaleQuality $= SDL.ScaleLinear
@@ -62,14 +62,14 @@ runWithSDLContext ScreenInfo{..} initialState iterator =
           window   <- createWindow
           renderer <- createRenderer window
           SDL.rendererDrawColor renderer $= black
-          loopOn initialState iterator $ SDLContext renderer window []
+          loopOn initialState iterator $ Context renderer window []
           SDL.destroyRenderer renderer
           SDL.destroyWindow window
           SDL.quit
     where black = let m = minBound in L.V4 m m m m
 
 
-loopOn :: InitialState state -> IterateStateFunc IO state -> SDLContext -> IO ()
+loopOn :: InitialState state -> IterateStateFunc IO state -> Context -> IO ()
 loopOn initial f context = iterateWithTime initial $ \dt a' ->
                                   do events <- collectEvents
                                      SDL.clear (renderer context)

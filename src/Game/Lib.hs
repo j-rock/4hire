@@ -1,10 +1,18 @@
 module Game.Lib
-    ( module Game.Lib.Types.GState
+    ( module Game.Lib.Types
+
+    , module Game.Lib.Units
+    , module Game.Lib.GState
+
     , iterateFunc
     ) where
 
-import           Game.Lib.Types.GState
-import qualified SDL.Extras            as SDL
+import           Game.Lib.GState
+import           Game.Lib.Types
+import           Game.Lib.Units
+
+import qualified Game.Mock      as Mock
+
 
 iterateFunc :: SDL.IterateStateFunc IO GState
-iterateFunc _ _ x = pure (x, SDL.StillPlaying)
+iterateFunc = iterateGState Mock.state

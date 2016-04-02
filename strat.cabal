@@ -46,13 +46,26 @@ library
   default-language:    Haskell2010
   hs-source-dirs:      src
   build-depends:
-    base               >= 4.8 && < 4.9,
-    sdl2               >= 2.0   && < 2.1,
+    base               >= 4.8   && < 4.9,
+    bytestring         >= 0.10  && < 0.11,
+    lens               >= 4.12  && < 4.13,
     linear             >= 1.19  && < 1.20,
+    OpenGL             >= 2.13  && < 2.14,
+    sdl2               >= 2.0   && < 2.1,
+    text               >= 1.2   && < 1.3,
     transformers       >= 0.4.2 && < 0.5,
-    text               >= 1.2   && < 1.3
+    vector             >= 0.10  && < 0.11
   exposed-modules:
-    SDL.Extras,
+    SDL.Run,
     Game.Lib,
-    Game.Lib.Types.GState
-
+      -- Game.Lib.GState,
+      --   Game.Lib.GState.Rules,
+      -- Game.Lib.Types,
+      --   Game.Lib.Types.Building,
+      --   Game.Lib.Types.GState,
+      --   Game.Lib.Types.Team,
+      --   Game.Lib.Types.Terrain,
+      --   Game.Lib.Types.Unit,
+      -- Game.Lib.Units,
+      --   Game.Lib.Units.Instances,
+    Game.Mock

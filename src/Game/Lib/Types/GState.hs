@@ -1,6 +1,12 @@
 module Game.Lib.Types.GState where
 
-data GState = GState
+import qualified SDL.Run        as SDL
 
-initialState :: GState
-initialState = GState
+data GState = GState
+            deriving (Show)
+
+iterateGState :: GState -> SDL.IterateStateFunc IO GState
+iterateGState g sdl dt = \x ->
+
+-- iterateFunc sdl dt x = do Mock.go sdl dt
+--                           pure (x, SDL.StillPlaying)
